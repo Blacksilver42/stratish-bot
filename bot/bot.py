@@ -24,7 +24,7 @@ async def on_ready():
 
 @client.event
 async def on_message(M):
-	print("#"+M.channel.name,"<"+str(M.author)+">", M.content)
+	print("#"+M.channel.name,"\t<"+str(M.author)+">\t", M.content)
 	
 	if(M.content.startswith('/stratish')):
 		await client.send_typing(M.channel)
