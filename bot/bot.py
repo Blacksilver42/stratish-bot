@@ -36,7 +36,7 @@ async def on_message(M):
 		system("touch "+tmpfile)
 		system(command)
 		await client.send_file(M.channel, tmpfile)
-	if(M.content.startswith('/pull'):
+	if(M.content.startswith('/pull')):
 		system("git pull")
 	
 
