@@ -2,4 +2,4 @@ CXX=g++
 SOURCES=main.cpp format.cpp drawGlyphs.cpp
 
 sbdraw:
-	$(CXX) -o sbdraw $(SOURCES) -I. -I/usr/include/ImageMagick-7/
+	$(CXX) -o sbdraw $(SOURCES) -I. -I/usr/include/ImageMagick/
