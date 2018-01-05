@@ -48,7 +48,7 @@ async def on_message(M):
 		await pull(M)
 	
 	if(M.content.startswith('/make')):
-		proc = subprocess.Popen(["make", "-C", "writer"], stdout=subprocess.PIPE)
+		proc = subprocess.Popen(["./make.sh"], stdout=subprocess.PIPE)
 		(out, err) = proc.communicate()
 		out = out.decode()
 		await client.send_message(M.channel, "```\n"+out+"\n```")
