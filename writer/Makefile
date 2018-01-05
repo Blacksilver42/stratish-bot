@@ -2,4 +2,4 @@ CXX=g++
 SOURCES=main.cpp format.cpp drawGlyphs.cpp
 
 sbdraw:
-	$(CXX) -o sbdraw $(SOURCES) -I. -I/usr/include/
+	$(CXX) -o sbdraw $(SOURCES) -I. -I/usr/include/ `Magick++-config --cppflags --cxxflags --ldflags --libs`
