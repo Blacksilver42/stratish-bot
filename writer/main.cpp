@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio.h>
 #include "format.hpp"
 
 int main(int argc, char* argv[]) {
@@ -6,7 +7,7 @@ int main(int argc, char* argv[]) {
     std::vector<std::string> formatted = format(argv[1]);
     //std::cout << draw(formatted);
     for (std::string word: formatted)
-        std::printf("%s, size:%lu\n", word.c_str(), word.size());
+        printf("%s, size:%lu\n", word.c_str(), word.size());
     return 0;
 }
 
