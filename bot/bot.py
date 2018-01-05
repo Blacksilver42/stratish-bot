@@ -13,7 +13,7 @@ async def pull(M):
 	proc = subprocess.Popen(["git", "pull"], stdout=subprocess.PIPE)
 	(out, err) = proc.communicate()
 	out = out.decode()
-	await client.send_message(M.channel, "`"+out+"`")
+	await client.send_message(M.channel, "```\n"+out+"\n```")
 
 ###############################################################################
 
