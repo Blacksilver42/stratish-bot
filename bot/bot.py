@@ -1,7 +1,7 @@
 import discord
 import time
 import subprocess
-
+from os import system
 
 with open("token", "r") as f:
 	TOKEN = f.read().rstrip()
