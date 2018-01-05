@@ -1,6 +1,7 @@
 import discord
 import time
-from os import system
+import subprocess
+
 
 with open("token", "r") as f:
 	TOKEN = f.read().rstrip()
@@ -17,7 +18,7 @@ async def on_ready():
 	print(client.user.name)
 	print(client.user.id)
 	print('------')
-	await client.change_presence(game=discord.Game(name='/stratish [word]'))
+	await client.change_presence(game=discord.Game(name='Portal 3'))
 	
 
 
@@ -36,8 +37,18 @@ async def on_message(M):
 		system("touch "+tmpfile)
 		system(command)
 		await client.send_file(M.channel, tmpfile)
+	
 	if(M.content.startswith('/pull')):
-		system("git pull")
+		proc = subprocess.Popen(["git", "pull"], stdout=subprocess.PIPE)
+		(out, err) = proc.communicate()
+		out = out.decode()
+		await client.send_message(M.channel, "`"+out+"`")
+	
+	if(M.content.startswith('/make')):
+		proc = subprocess.Popen(["make", "-C", "writer"], stdout=subprocess.PIPE)
+		(out, err) = proc.communicate()
+		out = out.decode()
+		await client.send_message(M.channel, "```\n"+out+"\n```")
 	
 
 client.run(TOKEN);
