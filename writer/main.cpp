@@ -6,7 +6,7 @@ int main(int argc, char* argv[]) {
     std::vector<std::string> formatted = format(argv[1]);
     //std::cout << draw(formatted);
     for (std::string word: formatted)
-        printf("%s, size:%lu\n", word.c_str(), word.size());
+        std::printf("%s, size:%lu\n", word.c_str(), word.size());
     return 0;
 }
 
