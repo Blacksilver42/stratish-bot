@@ -50,5 +50,10 @@ async def on_message(M):
 		out = out.decode()
 		await client.send_message(M.channel, "```\n"+out+"\n```")
 	
+	if(M.content.startswith('/chnick')):
+		if(M.author.id == "247841704386756619"):
+			await client.change_nickname(M.server.me, M.content[7:])
+		else:
+			await client.send_message(M.channel, "no.")
 
 client.run(TOKEN);
