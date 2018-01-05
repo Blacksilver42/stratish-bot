@@ -9,7 +9,7 @@ with open("token", "r") as f:
 client = discord.Client();
 
 
-async def pull():
+async def pull(M):
 	proc = subprocess.Popen(["git", "pull"], stdout=subprocess.PIPE)
 	(out, err) = proc.communicate()
 	out = out.decode()
@@ -45,7 +45,7 @@ async def on_message(M):
 		await client.send_file(M.channel, tmpfile)
 	
 	if(M.content.startswith('/pull')):
-		await pull()
+		await pull(M)
 	
 	if(M.content.startswith('/make')):
 		proc = subprocess.Popen(["make", "-C", "writer"], stdout=subprocess.PIPE)
@@ -60,7 +60,7 @@ async def on_message(M):
 			await client.send_message(M.channel, "no.")
 	
 	if(str(M.author) == "GitHub#0000"):
-		await pull()
+		await pull(M)
 		
 
 client.run(TOKEN);
