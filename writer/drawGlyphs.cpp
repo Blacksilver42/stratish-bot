@@ -12,8 +12,19 @@ struct Placer{
 };
 
 //base values
-int GLYPH_SIZE = 40;
-int SPACER = 6;
+int GLYPH_SIZE = 100;
+int SPACER = 5;
+
+int ART_OFFSET_X = -20;
+int ART_OFFSET_Y = -100;
+
+Coord offset (Coord origin, int offsetx, int offsety){
+    Coord offsetPos;
+    offsetPos.x = origin.x + offsetx;
+    offsetPos.y = origin.y + offsety;
+    return offsetPos;
+}
+
 
 Magick::Geometry MINI_GLYPH_GEO = Magick::Geometry(30,30);
 
@@ -28,14 +39,27 @@ std::vector<Placer> place(std::vector<std::string> input){
             if (x == '3')
                 temp.push_back((Placer){homePos, "../characters/_you.png"});
             if (x == '4')
-                temp.push_back((Placer){homePos, "../characters/_i.png"});
-            if (x == '1' || x == '2'){           // if there is an article
+                temp.push_back((Placer){homePos, "../characters/_me.png"});
+            if (x == '1' || x == '2')           // if there is an article
                 article = x;                     // let the next glyph know to add it
             if (j == 0 && (x >= 'A' && x <= 'Z')) { //if first character of a thin or bold sequence add it as a main glyph
-                char buf[20];
-                sprintf(buf, "../characters/%c.png", x);
+                char buf[21];
+                sprintf(buf, "../characters/%c1.png", x);
                 temp.push_back((Placer){homePos, buf});
+                if (article == '1'){
+                    temp.push_back((Placer){offset(homePos, ART_OFFSET_X, ART_OFFSET_Y), "../characters/_the.png"});
+                    article = '0'; //reset article
+                }
+                if (article == '2'){
+                    temp.push_back((Placer){offset(homePos, ART_OFFSET_X, ART_OFFSET_Y), "../characters/_a.png"});
+                    article = '0'; //same
+                }
             }
+            if (j == 1) {     //dont need to worry about it being 'A' through 'Z'
+                getMiniGlyphLoc(sequence[0]);
+                char buf[21];
+                sprintf(buf, "../characters/%c2.png", x);
+                temp.push_back((Placer){offset(homePos, ART_OFFSET_X, ART_OFFSET_Y), buf});
             }
         }
         if (article != '0')                       // dont change the home position unless its a Glyph or Glyphset aka not an article
@@ -50,7 +74,7 @@ void draw(std::vector<std::string> input){
     Magick::Blob blob;
     //image.resize();
     image.write(&blob);
-    std::cout << blob.data();
+    //std::cout << blob.data();
     return;
 }
 
