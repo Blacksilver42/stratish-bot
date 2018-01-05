@@ -30,17 +30,17 @@ std::vector<std::string> format(char* input){
         if(isThin(x))
             tempThin << (char)x;
         if(x == ' ' || x == 0){
-            if (tempWord.str() == "THE"){
-                groups.push_back("t");
+            if (tempWord.str() == "THE"){ // Maybe cryptic, but this is easier so I dont have to make an actual parser or pass a enum
+                groups.push_back("1");
             } else
             if (tempWord.str() == "A"){
-                groups.push_back("a");
+                groups.push_back("2");
             } else
             if (tempWord.str() == "YOU"){
-                groups.push_back("y");
+                groups.push_back("3");
             } else
             if (tempWord.str() == "I"){
-                groups.push_back("i");
+                groups.push_back("4");
             } else
             if (!(tempWord.str().empty())){
                 groups.push_back(tempThin.str());
