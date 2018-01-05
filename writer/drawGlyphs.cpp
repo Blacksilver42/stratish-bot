@@ -32,7 +32,7 @@ std::vector<Placer> place(std::vector<std::string> input){
             if (x == '1' || x == '2'){           // if there is an article
                 article = x;                     // let the next glyph know to add it
             if (j == 0 && (x >= 'A' && x <= 'Z')) { //if first character of a thin or bold sequence add it as a main glyph
-                char buf[19];
+                char buf[20];
                 sprintf(buf, "../characters/%c.png", x);
                 temp.push_back((Placer){homePos, buf});
             }
