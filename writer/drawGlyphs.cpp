@@ -15,14 +15,23 @@ struct BluePrint{
 enum Operation {None, Minify, Rotate90, Rotate180, Rotate270};
 
 //base values
+const int IMAGE_PADDING = 5;
+
 const int GLYPH_SIZE = 100; //must be a multiple of 20
-const int SPACER = 5;
+const int SPACER = 10;
+const int THIN_DECO_SIZE = 40;
+const int BOLD_DECO_SIZE = 20;
+const int DECO_SPACER = 5;
 
 const Offset ARTICLE_OFFSET = {-GLYPH_SIZE / 5, -GLYPH_SIZE};
 const int MINI_GLYPH_OFFSET = (GLYPH_SIZE  * 3) / 20;
 const int MINI_GLYPH_SIZE = GLYPH_SIZE / 2;
 
 Magick::Geometry MINI_GLYPH_GEO = Magick::Geometry(MINI_GLYPH_SIZE,MINI_GLYPH_SIZE);
+
+bool isBoldDeco(char x){
+    return (x == 'A' || x == 'E' || x == 'I' || x == 'O' || x == 'U' || x == 'Y');
+}
 
 Offset charOffset(char x){
     if (x == 'A' || x == 'E' || x == 'I' || x == 'O' || x == 'U' || x == 'Y')             //middle
@@ -92,6 +101,20 @@ std::vector<BluePrint> graph(std::vector<std::string> input){
                 bluePrint.push_back({offset(localOrigin, offsetPrev), getImage(buf, Minify)});
             }
             if (j >= 2){
+                char buf[18];
+                sprintf(buf, "characters/%c2.png", x);
+                if (j % 2 == 0 && article == '0'){ //add on bottom
+                    if (isBoldDeco(x))
+                        bluePrint.push_back({offset(localOrigin,{0 ,static_cast<int>(-GLYPH_SIZE - DECO_SPACER - (j - 2) * (DECO_SPACER + BOLD_DECO_SIZE))}), getImage(buf, Rotate180)});
+                    else
+                        bluePrint.push_back({offset(localOrigin,{0 ,static_cast<int>(-GLYPH_SIZE - DECO_SPACER - (j - 2) * (DECO_SPACER + THIN_DECO_SIZE))}), getImage(buf, Rotate180)});
+                }
+                if (j % 2 == 1 || article != '0'){ //add on 
+                    if (isBoldDeco(x))
+                        bluePrint.push_back({offset(localOrigin,{0 ,static_cast<int>((j - 1) * (DECO_SPACER + BOLD_DECO_SIZE))}), getImage(buf)});
+                    else
+                        bluePrint.push_back({offset(localOrigin,{0 ,static_cast<int>((j - 1) * (DECO_SPACER + THIN_DECO_SIZE))}), getImage(buf)});
+                }
                 //TODO add decos
             }
             if (j == (sequence.length()-1) && !(x == '1' || x == '2'))
@@ -125,8 +148,11 @@ Offset correctOffsets(std::vector<BluePrint> &bluePrint){
     for (unsigned int i = 0; i < bluePrint.size(); i++){
         bluePrint[i].offset.x -= lowx;
         bluePrint[i].offset.y *= -1;
+        bluePrint[i].offset.y += highy;
+        bluePrint[i].offset.x += IMAGE_PADDING;
+        bluePrint[i].offset.y += IMAGE_PADDING;
     }
-    return {highx - lowx, highy - lowy};
+    return {highx - lowx + 2 * IMAGE_PADDING, highy - lowy + 2 * IMAGE_PADDING};
 }
 
 void drawToFile(std::vector<std::string> input, std::string tmpfile){
