@@ -8,12 +8,12 @@ with open("token", "r") as f:
 
 client = discord.Client();
 
-repo = Repo('.')
-branch = repo.active_branch
-
 BLEEDING = False
 try:
 	from git import Repo
+	repo = Repo('.')
+	branch = repo.active_branch
+
 	if(branch.name == "bleeding"):
 		BLEEDING = True
 		print("*** Bleeding edge ***")
@@ -21,6 +21,11 @@ except:
 	print("Couldn't check branch, assuming master")
 	#TODO: fallback
 
+async def wtf(M):
+	await client.add_reaction(M, "❓")
+
+async def nope(M):
+	await client.add_reaction(M, "🚫")
 
 async def pull(M):
 	proc = subprocess.Popen(["git", "pull"], stdout=subprocess.PIPE)
@@ -36,6 +41,10 @@ async def make(M):
 	await client.send_message(M.channel, "```\n"+out+"\n```")
 
 async def stratish(M, words):
+	if(words[0]!=' '):
+		await wtf(M)
+		return
+
 	await client.send_typing(M.channel)
 	ut = time.strftime("%s")
 	tmpfile = "tmp/img-"+str(ut)+".png"
@@ -66,12 +75,12 @@ async def on_message(M):
 	
 	if(BLEEDING):
 		if(M.content.startswith('/bleeding')):
-			await stratish(M, M.content[10:])
+			await stratish(M, M.content[9:])
 	else:
 		if(M.content.startswith('/stratish')):
-			await stratish(M, M.content[10:])
+			await stratish(M, M.content[9:])
 		if(M.content.startswith('/s') or M.content.startswith("/S")):
-			await stratish(M, M.content[3:])
+			await stratish(M, M.content[2:])
 	
 	if(M.content.startswith('/pull')):
 		await pull(M)
