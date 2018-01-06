@@ -8,6 +8,19 @@ with open("token", "r") as f:
 
 client = discord.Client();
 
+repo = Repo('.')
+branch = repo.active_branch
+
+BLEEDING = False
+try:
+	from git import Repo
+	if(branch.name == "bleeding"):
+		BLEEDING = True
+		print("*** Bleeding edge ***")
+except:
+	print("Couldn't check branch, assuming master")
+	#TODO: fallback
+
 
 async def pull(M):
 	proc = subprocess.Popen(["git", "pull"], stdout=subprocess.PIPE)
@@ -51,11 +64,15 @@ async def on_ready():
 async def on_message(M):
 	print("#"+M.channel.name,"\t<"+str(M.author)+">\t", M.content)
 	
-	if(M.content.startswith('/stratish')):
-		await stratish(M, M.content[10:])
-	if(M.content.startswith('/s')):
-		await stratish(M, M.content[3:])
-
+	if(BLEEDING):
+		if(M.content.startswith('/bleeding')):
+			await stratish(M, M.content[10:])
+	else:
+		if(M.content.startswith('/stratish')):
+			await stratish(M, M.content[10:])
+		if(M.content.startswith('/s') or M.content.startswith("/S")):
+			await stratish(M, M.content[3:])
+	
 	if(M.content.startswith('/pull')):
 		await pull(M)
 	
