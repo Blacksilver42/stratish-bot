@@ -32,7 +32,7 @@ async def pull(M):
 	(out, err) = proc.communicate()
 	out = out.decode()
 	print("'"+out+"'")
-	if(out != "Already up-to-date\n"):
+	if(out != "Already up-to-date.\n"):
 		await client.send_message(M.channel, "```\n"+out+"\n```")
 	else:
 		await client.add_reaction(M, "☑️")
