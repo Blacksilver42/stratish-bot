@@ -31,7 +31,8 @@ async def pull(M):
 	proc = subprocess.Popen(["git", "pull"], stdout=subprocess.PIPE)
 	(out, err) = proc.communicate()
 	out = out.decode()
-	await client.send_message(M.channel, "```\n"+out+"\n```")
+	if(out != "Already up-to-date\n"):
+		await client.send_message(M.channel, "```\n"+out+"\n```")
 
 async def make(M):
 	await client.send_typing(M.channel)
