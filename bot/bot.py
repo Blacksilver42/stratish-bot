@@ -22,16 +22,15 @@ async def make(M):
 	out = out.decode()
 	await client.send_message(M.channel, "```\n"+out+"\n```")
 
-async def stratish(M):
+async def stratish(M, words):
 	await client.send_typing(M.channel)
-	words=M.content[10:]
 	ut = time.strftime("%s")
 	tmpfile = "tmp/img-"+str(ut)+".png"
 	command = "writer/sbdraw '%s' '%s'" % (words, tmpfile)
 	print("$", command)
 	system("touch "+tmpfile)
 	system(command)
-	await client.send_file(M.channel, tmpfile)
+	await client.send_file(M.channel, tmpfile, content="`"+words+"`")
 	
 
 ###############################################################################
@@ -53,7 +52,9 @@ async def on_message(M):
 	print("#"+M.channel.name,"\t<"+str(M.author)+">\t", M.content)
 	
 	if(M.content.startswith('/stratish')):
-		await stratish(M)
+		await stratish(M, M.content[10:])
+	if(M.content.startswith('/s')):
+		await stratish(M, M.content[3:])
 
 	if(M.content.startswith('/pull')):
 		await pull(M)
