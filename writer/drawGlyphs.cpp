@@ -20,7 +20,7 @@ const int SPACER = 5;
 
 const int ART_OFFSET_X = -GLYPH_SIZE / 5;
 const int ART_OFFSET_Y = -GLYPH_SIZE;
-const int MINI_GLYPH_OFFSET = GLYPH_SIZE / 5;
+const int MINI_GLYPH_OFFSET = (GLYPH_SIZE  * 3) / 20;
 const int MINI_GLYPH_SIZE = GLYPH_SIZE / 2;
 
 Magick::Geometry MINI_GLYPH_GEO = Magick::Geometry(MINI_GLYPH_SIZE,MINI_GLYPH_SIZE);
