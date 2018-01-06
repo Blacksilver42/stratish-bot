@@ -31,6 +31,7 @@ async def pull(M):
 	proc = subprocess.Popen(["git", "pull"], stdout=subprocess.PIPE)
 	(out, err) = proc.communicate()
 	out = out.decode()
+	print("'"+out+"'")
 	if(out != "Already up-to-date\n"):
 		await client.send_message(M.channel, "```\n"+out+"\n```")
 	else:
