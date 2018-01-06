@@ -33,6 +33,8 @@ async def pull(M):
 	out = out.decode()
 	if(out != "Already up-to-date\n"):
 		await client.send_message(M.channel, "```\n"+out+"\n```")
+	else:
+		await client.add_reaction(M, "☑️")
 
 async def make(M):
 	await client.send_typing(M.channel)
