@@ -27,12 +27,19 @@ async def wtf(M):
 async def nope(M):
 	await client.add_reaction(M, "🚫")
 
+async def check(M):
+	await client.add_reaction(M, "☑️")
+
+
 async def pull(M):
 	proc = subprocess.Popen(["git", "pull"], stdout=subprocess.PIPE)
 	(out, err) = proc.communicate()
 	out = out.decode()
-	if(out != "Already up-to-date\n"):
+	print("'"+out+"'")
+	if(out != "Already up-to-date.\n"):
 		await client.send_message(M.channel, "```\n"+out+"\n```")
+	else:
+		await check(M)
 
 async def make(M):
 	await client.send_typing(M.channel)
