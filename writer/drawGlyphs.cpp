@@ -15,7 +15,7 @@ struct BluePrint{
 enum Operation {None, Minify, Rotate90, Rotate180, Rotate270};
 
 //base values
-const int IMAGE_PADDING = 30;
+const int IMAGE_PADDING = 15;
 
 const int GLYPH_SIZE = 100; //must be a multiple of 20
 const int SPACER = 10;
