@@ -10,4 +10,4 @@ sbdraw: $(OBJS)
 	$(CXX) -o sbdraw $(OBJS) -I. -I/usr/include/ $(CXXFLAGS) $(MAGICKFLAGS)
 
 %.o: %.cpp
-	$(CXX) -c $< $(CXXFLAGS)
+	$(CXX) -c $< $(CXXFLAGS) $(MAGICKFLAGS)
