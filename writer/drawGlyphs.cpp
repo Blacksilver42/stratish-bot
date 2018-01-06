@@ -130,6 +130,7 @@ Offset correctOffsets(std::vector<BluePrint> &bluePrint){
 }
 
 void drawToFile(std::vector<std::string> input, std::string tmpfile){
+    Magick::InitializeMagick(NULL);
     std::vector<BluePrint> bluePrint = graph(input);
     Offset size = correctOffsets(bluePrint);
     Magick::Image image(Magick::Geometry(size.x, size.y), Magick::Color("white"));
