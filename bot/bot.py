@@ -15,6 +15,25 @@ async def pull(M):
 	out = out.decode()
 	await client.send_message(M.channel, "```\n"+out+"\n```")
 
+async def make(M):
+	await client.send_typing(M.channel)
+	proc = subprocess.Popen(["./make.sh"], stdout=subprocess.PIPE)
+	(out, err) = proc.communicate()
+	out = out.decode()
+	await client.send_message(M.channel, "```\n"+out+"\n```")
+
+async def stratish(M):
+	await client.send_typing(M.channel)
+	words=M.content[10:]
+	ut = time.strftime("%s")
+	tmpfile = "tmp/img-"+str(ut)+".png"
+	command = "writer/sbdraw '%s' >%s" % (words, tmpfile)
+	print("$", command)
+	system("touch "+tmpfile)
+	system(command)
+	await client.send_file(M.channel, tmpfile)
+	
+
 ###############################################################################
 
 
@@ -34,24 +53,13 @@ async def on_message(M):
 	print("#"+M.channel.name,"\t<"+str(M.author)+">\t", M.content)
 	
 	if(M.content.startswith('/stratish')):
-		await client.send_typing(M.channel)
-		words=M.content[10:]
-		ut = time.strftime("%s")
-		tmpfile = "tmp/img-"+str(ut)+".png"
-		command = "writer/sbdraw '%s' >%s" % (words, tmpfile)
-		print("$", command)
-		system("touch "+tmpfile)
-		system(command)
-		await client.send_file(M.channel, tmpfile)
-	
+		await stratish(M)
+
 	if(M.content.startswith('/pull')):
 		await pull(M)
 	
 	if(M.content.startswith('/make')):
-		proc = subprocess.Popen(["./make.sh"], stdout=subprocess.PIPE)
-		(out, err) = proc.communicate()
-		out = out.decode()
-		await client.send_message(M.channel, "```\n"+out+"\n```")
+		await make(M)
 	
 	if(M.content.startswith('/chnick')):
 		if(M.author.id == "247841704386756619"):
