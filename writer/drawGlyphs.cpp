@@ -1,7 +1,6 @@
 #include "drawGlyphs.hpp"
 #include <Magick++.h>
 #include <iostream>
-#include <fstream>
 #include <stdio.h>
 #include <tuple>
 
