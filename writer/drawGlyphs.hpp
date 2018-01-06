@@ -5,5 +5,5 @@
 #include <vector>
 #include <iostream>
 
-void draw(std::vector<std::string> input, std::string tmpfile);
+void drawToFile(std::vector<std::string> input, std::string tmpfile);
 #endif
