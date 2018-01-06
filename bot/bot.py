@@ -27,7 +27,7 @@ async def stratish(M):
 	words=M.content[10:]
 	ut = time.strftime("%s")
 	tmpfile = "tmp/img-"+str(ut)+".png"
-	command = "writer/sbdraw '%s' >%s" % (words, tmpfile)
+	command = "writer/sbdraw '%s' '%s'" % (words, tmpfile)
 	print("$", command)
 	system("touch "+tmpfile)
 	system(command)
