@@ -15,6 +15,8 @@ struct BluePrint{
 enum Operation {None, Minify, Rotate90, Rotate180, Rotate270};
 
 //base values
+const int IMAGE_PADDING = 5;
+
 const int GLYPH_SIZE = 100; //must be a multiple of 20
 const int SPACER = 10;
 const int THIN_DECO_SIZE = 40;
@@ -147,8 +149,10 @@ Offset correctOffsets(std::vector<BluePrint> &bluePrint){
         bluePrint[i].offset.x -= lowx;
         bluePrint[i].offset.y *= -1;
         bluePrint[i].offset.y += highy;
+        bluePrint[i].offset.x += IMAGE_PADDING;
+        bluePrint[i].offset.y += IMAGE_PADDING;
     }
-    return {highx - lowx, highy - lowy};
+    return {highx - lowx + 2 * IMAGE_PADDING, highy - lowy + 2 * IMAGE_PADDING};
 }
 
 void drawToFile(std::vector<std::string> input, std::string tmpfile){
