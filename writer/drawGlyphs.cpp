@@ -77,6 +77,11 @@ std::vector<BluePrint> graph(std::vector<std::string> input){
     char article = '0';
     for (unsigned int i = 0; i < input.size(); i++){
         std::string sequence = input[i];
+        if (sequence.length() == 0)
+            continue;
+        int decorationSize;
+        Offset localDecoTopOrigin;
+        Offset localDecoBotOrigin;
         for (unsigned int j = 0; j < sequence.length(); j++){
             char x = sequence[j];
             if (x == '3')
@@ -100,22 +105,25 @@ std::vector<BluePrint> graph(std::vector<std::string> input){
                 Offset offsetPrev = charOffset(sequence[0]);
                 bluePrint.push_back({offset(localOrigin, offsetPrev), getImage(buf, Minify)});
             }
+            if (j == 2){
+                if (isBoldDeco(x))
+                    decorationSize = BOLD_DECO_SIZE;
+                else
+                    decorationSize = THIN_DECO_SIZE;
+                localDecoTopOrigin = offset(localOrigin, {0, decorationSize + DECO_SPACER});
+                localDecoBotOrigin = offset(localOrigin, {0, -GLYPH_SIZE - DECO_SPACER});
+            }
             if (j >= 2){
                 char buf[18];
                 sprintf(buf, "characters/%c2.png", x);
                 if (j % 2 == 0 && article == '0'){ //add on bottom
-                    if (isBoldDeco(x))
-                        bluePrint.push_back({offset(localOrigin,{0 ,static_cast<int>(-GLYPH_SIZE - DECO_SPACER - (j - 2) * (DECO_SPACER + BOLD_DECO_SIZE))}), getImage(buf, Rotate180)});
-                    else
-                        bluePrint.push_back({offset(localOrigin,{0 ,static_cast<int>(-GLYPH_SIZE - DECO_SPACER - (j - 2) * (DECO_SPACER + THIN_DECO_SIZE))}), getImage(buf, Rotate180)});
+                    bluePrint.push_back({localDecoBotOrigin, getImage(buf, Rotate180)});
+                    localDecoBotOrigin.y -= (decorationSize + DECO_SPACER);
                 }
                 if (j % 2 == 1 || article != '0'){ //add on 
-                    if (isBoldDeco(x))
-                        bluePrint.push_back({offset(localOrigin,{0 ,static_cast<int>((j - 1) * (DECO_SPACER + BOLD_DECO_SIZE))}), getImage(buf)});
-                    else
-                        bluePrint.push_back({offset(localOrigin,{0 ,static_cast<int>((j - 1) * (DECO_SPACER + THIN_DECO_SIZE))}), getImage(buf)});
+                    bluePrint.push_back({localDecoTopOrigin, getImage(buf)});
+                    localDecoTopOrigin.y += (decorationSize + DECO_SPACER);
                 }
-                //TODO add decos
             }
             if (j == (sequence.length()-1) && !(x == '1' || x == '2'))
                 article = '0';
