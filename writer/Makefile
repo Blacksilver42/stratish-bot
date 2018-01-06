@@ -1,6 +1,13 @@
 CXX=g++
 SOURCES=main.cpp format.cpp drawGlyphs.cpp
-CXXFLAGS=-Wall
+OBJS=main.o format.o drawGlyphs.o
 
-sbdraw:
-	$(CXX) -o sbdraw $(SOURCES) -I. -I/usr/include/ $(CXXFLAGS) `Magick++-config --cppflags --cxxflags --ldflags --libs`
+CXXFLAGS=-Wall -std=gnu++11
+
+MAGICKFLAGS=$(shell Magick++-config --cppflags --cxxflags --ldflags --libs)
+
+sbdraw: $(OBJS)
+	$(CXX) -o sbdraw $(OBJS) -I. -I/usr/include/ $(CXXFLAGS) $(MAGICKFLAGS)
+
+%.o: %.cpp
+	$(CXX) -c $< $(CXXFLAGS)
