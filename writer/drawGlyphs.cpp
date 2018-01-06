@@ -123,7 +123,7 @@ Offset correctOffsets(std::vector<BluePrint> &bluePrint){
         }
     }
     for (unsigned int i = 0; i < bluePrint.size(); i++){
-        //bluePrint[i].offset.x -= lowx;
+        bluePrint[i].offset.x -= lowx;
         bluePrint[i].offset.y *= -1;
     }
     return {highx - lowx, highy - lowy};
