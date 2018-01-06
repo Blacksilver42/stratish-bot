@@ -30,7 +30,7 @@ std::vector<std::string> format(char* input){
         if(isThin(x))
             tempThin << (char)x;
         if(x == ' ' || x == 0){
-            if (tempWord.str() == "THE"){ // Maybe cryptic, but this is easier so I dont have to make an actual parser or pass a enum
+            if (tempWord.str() == "THE"){ // Maybe cryptic, but this is easier so I dont have to make an actual parser or pass an enum
                 groups.push_back("1");
             } else
             if (tempWord.str() == "A"){
