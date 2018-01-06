@@ -32,7 +32,7 @@ std::tuple<int, int> prevCharOffset(char x){
         return std::make_tuple(MINI_GLYPH_OFFSET, -MINI_GLYPH_OFFSET);
     if (x == 'L' || x == 'P')                                                             //top right
         return std::make_tuple(GLYPH_SIZE - (MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE), -MINI_GLYPH_OFFSET);
-    if (x == 'G' || x == 'H' || x == 'K' || x == 'T' || x == 'W')                         //bottom right
+    if (x == 'G' || x == 'H' || x == 'K' || x == 'T' || x == 'W' || x == 'Z')             //bottom right
         return std::make_tuple(GLYPH_SIZE - (MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE), MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE - GLYPH_SIZE);
     if (x == 'R' || x == 'S' || x == 'X')                                                 //bottom left
         return std::make_tuple(MINI_GLYPH_OFFSET, MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE - GLYPH_SIZE);
