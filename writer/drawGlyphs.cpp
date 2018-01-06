@@ -71,9 +71,9 @@ std::vector<BluePrint> graph(std::vector<std::string> input){
         for (unsigned int j = 0; j < sequence.length(); j++){
             char x = sequence[j];
             if (x == '3')
-                bluePrint.push_back({localOrigin, getImage("../characters/_you.png")});
+                bluePrint.push_back({localOrigin, getImage("/characters/_you.png")});
             if (x == '4')
-                bluePrint.push_back({localOrigin, getImage("../characters/_me.png")});
+                bluePrint.push_back({localOrigin, getImage("/characters/_me.png")});
             if (x == '1' || x == '2')           // if there is an article
                 article = x;                     // let the next glyph know to add it
             if (j == 0 && (x >= 'A' && x <= 'Z')) { //if first character of a thin or bold sequence add it as a main glyph
@@ -81,13 +81,13 @@ std::vector<BluePrint> graph(std::vector<std::string> input){
                 sprintf(buf, "../characters/%c1.png", x);
                 bluePrint.push_back({localOrigin, getImage(buf)});
                 if (article == '1')
-                    bluePrint.push_back({offset(localOrigin, ARTICLE_OFFSET), getImage("../characters/_the.png")});
+                    bluePrint.push_back({offset(localOrigin, ARTICLE_OFFSET), getImage("/characters/_the.png")});
                 if (article == '2')
-                    bluePrint.push_back({offset(localOrigin, ARTICLE_OFFSET), getImage("../characters/_a.png")});
+                    bluePrint.push_back({offset(localOrigin, ARTICLE_OFFSET), getImage("/characters/_a.png")});
             }
             if (j == 1) {     //dont need to worry about it being 'A' through 'Z'
                 char buf[21];
-                sprintf(buf, "../characters/%c1.png", x);
+                sprintf(buf, "/characters/%c1.png", x);
                 Offset offsetPrev = charOffset(sequence[0]);
                 bluePrint.push_back({offset(localOrigin, offsetPrev), getImage(buf, Minify)});
             }
