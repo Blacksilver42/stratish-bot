@@ -1,6 +1,7 @@
 import discord
 import time
 import subprocess
+import random
 from profanity import profanity
 from os import system
 
@@ -29,6 +30,11 @@ else:
 	PREFIX = "/"
 
 print("PREFIX =", PREFIX)
+
+refuse_messages = [
+	"Not in a million years", "When hell freezes over",
+	"When pigs fly", "When the Linux kernel is bug-free(tm)"
+]
 
 async def wtf(M):
 	await client.add_reaction(M, "❓")
@@ -69,7 +75,7 @@ async def stratish(M, words):
 		return
 	
 	if(profanity.contains_profanity(words)):
-		await client.send_message(M.channel, "Not in a million years.")
+		await client.send_message(M.channel, random.choice(refuse_messages))
 		return
 	
 	await client.send_typing(M.channel)
