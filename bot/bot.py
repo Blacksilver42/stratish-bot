@@ -98,7 +98,7 @@ async def on_message(M):
 	if(M.content.startswith(PREFIX + 'stratish')):
 		await stratish(M, M.content[9:])
 
-	if(M.content.startswith(PREFIX + 's') or M.content.startswith("/S")):
+	if(M.content.startswith(PREFIX + 's') or M.content.startswith(PREFIX+"S")):
 		await stratish(M, M.content[2:])
 
 	if(M.content.startswith(PREFIX + 'pull')):
