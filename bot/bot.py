@@ -21,6 +21,13 @@ except:
 	print("Couldn't check branch, assuming master")
 	#TODO: fallback
 
+
+if(BLEEDING):
+	PREFIX = "?"
+else:
+	PREFIX = "/"
+
+
 async def wtf(M):
 	await client.add_reaction(M, "❓")
 
@@ -81,22 +88,18 @@ async def on_ready():
 async def on_message(M):
 	print("#"+M.channel.name,"\t<"+str(M.author)+">\t", M.content)
 	
-	if(BLEEDING):
-		if(M.content.startswith('/bleeding')):
-			await stratish(M, M.content[9:])
-	else:
-		if(M.content.startswith('/stratish')):
-			await stratish(M, M.content[9:])
-		if(M.content.startswith('/s') or M.content.startswith("/S")):
-			await stratish(M, M.content[2:])
-	
-	if(M.content.startswith('/pull')):
+	if(M.content.startswith(PREFIX + 'stratish')):
+		await stratish(M, M.content[9:])
+	if(M.content.startswith(PREFIX + 's') or M.content.startswith("/S")):
+		await stratish(M, M.content[2:])
+
+	if(M.content.startswith(PREFIX + 'pull')):
 		await pull(M)
 	
-	if(M.content.startswith('/make')):
+	if(M.content.startswith(PREFIX + 'make')):
 		await make(M)
 	
-	if(M.content.startswith('/chnick')):
+	if(M.content.startswith(PREFIX + 'chnick')):
 		if(M.author.id == "247841704386756619"):
 			await client.change_nickname(M.server.me, M.content[7:])
 		else:
