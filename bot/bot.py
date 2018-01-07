@@ -8,26 +8,26 @@ with open("token", "r") as f:
 
 client = discord.Client();
 
-BLEEDING = False
+RAZOR = False
 try:
 	from git import Repo
 	repo = Repo('.')
 	branch = repo.active_branch
 
-	if(branch.name == "bleeding"):
-		BLEEDING = True
-		print("*** Bleeding edge ***")
+	if(branch.name == "razor"):
+		RAZOR = True
+		print("*** Razor's edge ***")
 except:
 	print("Couldn't check branch, assuming master.")
-	print("PREFIX = /")
 	#TODO: fallback
 
 
-if(BLEEDING):
+if(RAZOR):
 	PREFIX = "?"
 else:
 	PREFIX = "/"
 
+print("PREFIX =", PREFIX)
 
 async def wtf(M):
 	await client.add_reaction(M, "❓")
