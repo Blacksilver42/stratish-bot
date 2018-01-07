@@ -105,7 +105,7 @@ async def on_message(M):
 		if(M.author.id == "247841704386756619"):
 			await client.change_nickname(M.server.me, M.content[7:])
 		else:
-			await client.send_message(M.channel, "no.")
+			await nope(M)
 	
 	if(str(M.author) == "GitHub#0000"):
 		await pull(M)
