@@ -57,6 +57,11 @@ async def make(M):
 	out = out.decode()
 	await client.send_message(M.channel, "```\n"+out+"\n```")
 
+async def glyph(M):
+	char = M.content[7].upper()
+	path = "characters/"+char+"1.png"
+	await client.send_file(M.channel, path)
+
 async def stratish(M, words):
 	if(words[0]!=' '):
 		await wtf(M)
@@ -92,6 +97,7 @@ async def on_message(M):
 	
 	if(M.content.startswith(PREFIX + 'stratish')):
 		await stratish(M, M.content[9:])
+
 	if(M.content.startswith(PREFIX + 's') or M.content.startswith("/S")):
 		await stratish(M, M.content[2:])
 
@@ -106,6 +112,10 @@ async def on_message(M):
 			await client.change_nickname(M.server.me, M.content[7:])
 		else:
 			await nope(M)
+	
+	if(M.content.startswith(PREFIX + 'glyph')):
+		await glyph(M)
+	
 	
 	if(str(M.author) == "GitHub#0000"):
 		await pull(M)
