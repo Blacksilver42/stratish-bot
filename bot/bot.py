@@ -1,6 +1,7 @@
 import discord
 import time
 import subprocess
+from profanity import profanity
 from os import system
 
 with open("token", "r") as f:
@@ -66,7 +67,11 @@ async def stratish(M, words):
 	if(words[0]!=' '):
 		await wtf(M)
 		return
-
+	
+	if(profanity.contains_profanity(words)):
+		await client.send_message(M.channel, "Not in a million years.")
+		return
+	
 	await client.send_typing(M.channel)
 	ut = time.strftime("%s")
 	tmpfile = "tmp/img-"+str(ut)+".png"
