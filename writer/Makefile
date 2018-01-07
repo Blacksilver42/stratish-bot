@@ -11,3 +11,8 @@ sbdraw: $(OBJS)
 
 %.o: %.cpp
 	$(CXX) -c $< $(CXXFLAGS) $(MAGICKFLAGS)
+
+# extra prereqs for objects
+drawGlyphs.o: presets.h drawGlyphs.hpp
+format.o: format.hpp
+main.o:
