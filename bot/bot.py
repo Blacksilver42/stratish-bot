@@ -31,10 +31,6 @@ else:
 
 print("PREFIX =", PREFIX)
 
-refuse_messages = [
-	"Not in a million years", "When hell freezes over",
-	"When pigs fly", "When the Linux kernel is bug-free(tm)"
-]
 
 async def wtf(M):
 	await client.add_reaction(M, "❓")
@@ -45,7 +41,14 @@ async def nope(M):
 async def check(M):
 	await client.add_reaction(M, "✅")
 
-
+async def refuse(M):
+	proc = subprocess.Popen(["/usr/games/fortune", "bofh-excuses"],
+		stdout=subprocess.PIPE)
+	(out, err) = proc.communicate()
+	out = out.decode()
+	msg = "**Error:** " + out.split("\n",2)[2];
+	await client.send_message(M.channel,msg)
+	
 async def pull(M):
 	proc = subprocess.Popen(["git", "pull"], stdout=subprocess.PIPE)
 	(out, err) = proc.communicate()
@@ -75,8 +78,11 @@ async def stratish(M, words):
 		return
 	
 	if(profanity.contains_profanity(words)):
-		await client.send_message(M.channel, random.choice(refuse_messages))
-		return
+		await refuse(M)
+		try:
+			await client.delete_message(M)
+		finally:
+			return
 	
 	await client.send_typing(M.channel)
 	ut = time.strftime("%s")
@@ -126,6 +132,9 @@ async def on_message(M):
 	
 	if(M.content.startswith(PREFIX + 'glyph')):
 		await glyph(M)
+
+	if(M.content.startswith(PREFIX + 'refuse')):
+		await refuse(M)
 	
 	
 	if(str(M.author) == "GitHub#0000"):
