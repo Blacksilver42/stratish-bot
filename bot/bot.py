@@ -18,8 +18,10 @@ try:
 		BLEEDING = True
 		print("*** Bleeding edge ***")
 except:
-	print("Couldn't check branch, assuming master")
+	print("Couldn't check branch, assuming master.")
+	print("PREFIX = /")
 	#TODO: fallback
+
 
 async def wtf(M):
 	await client.add_reaction(M, "❓")
@@ -38,6 +40,7 @@ async def pull(M):
 	print("'"+out+"'")
 	if(out != "Already up-to-date.\n"):
 		await client.send_message(M.channel, "```\n"+out+"\n```")
+		make()
 	else:
 		await check(M)
 
