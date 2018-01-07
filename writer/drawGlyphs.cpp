@@ -4,28 +4,22 @@
 #include <stdio.h>
 #include <climits>
 
+#include "presets.h"
+
 struct Offset{
     int x;
     int y;
 };
+
 struct BluePrint{
     Offset offset;
     Magick::Image image;
 };
+
 enum Operation {None, Minify, Rotate90, Rotate180, Rotate270};
 
-//base values
-const int IMAGE_PADDING = 15;
-
-const int GLYPH_SIZE = 100; //must be a multiple of 20
-const int SPACER = 10;
-const int THIN_DECO_SIZE = 40;
-const int BOLD_DECO_SIZE = 20;
-const int DECO_SPACER = 5;
 
 const Offset ARTICLE_OFFSET = {-GLYPH_SIZE / 5, -GLYPH_SIZE};
-const int MINI_GLYPH_OFFSET = (GLYPH_SIZE  * 3) / 20;
-const int MINI_GLYPH_SIZE = GLYPH_SIZE / 2;
 
 Magick::Geometry MINI_GLYPH_GEO = Magick::Geometry(MINI_GLYPH_SIZE,MINI_GLYPH_SIZE);
 
