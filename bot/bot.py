@@ -30,7 +30,7 @@ async def nope(M):
 	await client.add_reaction(M, "🚫")
 
 async def check(M):
-	await client.add_reaction(M, "☑️")
+	await client.add_reaction(M, "✅")
 
 
 async def pull(M):
