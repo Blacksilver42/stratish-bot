@@ -1,10 +1,14 @@
+.PHONY: clean
+
 CXX=g++
 SOURCES=main.cpp format.cpp drawGlyphs.cpp
 OBJS=main.o format.o drawGlyphs.o
 
-CXXFLAGS=-Wall -std=gnu++11
+CXXFLAGS=-Wall -Wextra -Wpedantic -std=gnu++11
 
 MAGICKFLAGS:=$(shell Magick++-config --cppflags --cxxflags --ldflags --libs)
+
+
 
 sbdraw: $(OBJS)
 	$(CXX) -o sbdraw $(OBJS) -I. -I/usr/include/ $(CXXFLAGS) $(MAGICKFLAGS)
@@ -16,3 +20,7 @@ sbdraw: $(OBJS)
 drawGlyphs.o: presets.h drawGlyphs.hpp
 format.o: format.hpp
 main.o:
+
+
+clean:
+	rm -rf *.o sbdraw
