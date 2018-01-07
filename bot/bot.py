@@ -52,7 +52,7 @@ async def pull(M):
 
 async def make(M):
 	await client.send_typing(M.channel)
-	proc = subprocess.Popen(["./make.sh"], stdout=subprocess.PIPE)
+	proc = subprocess.Popen(["bot/make.sh"], stdout=subprocess.PIPE)
 	(out, err) = proc.communicate()
 	out = out.decode()
 	await client.send_message(M.channel, "```\n"+out+"\n```")
