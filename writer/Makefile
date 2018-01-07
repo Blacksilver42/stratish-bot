@@ -4,7 +4,7 @@ OBJS=main.o format.o drawGlyphs.o
 
 CXXFLAGS=-Wall -std=gnu++11
 
-MAGICKFLAGS=$(shell Magick++-config --cppflags --cxxflags --ldflags --libs)
+MAGICKFLAGS:=$(shell Magick++-config --cppflags --cxxflags --ldflags --libs)
 
 sbdraw: $(OBJS)
 	$(CXX) -o sbdraw $(OBJS) -I. -I/usr/include/ $(CXXFLAGS) $(MAGICKFLAGS)
