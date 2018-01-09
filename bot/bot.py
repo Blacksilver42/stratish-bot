@@ -118,7 +118,7 @@ async def on_message(M):
 	if(M.content.startswith(PREFIX + 's') or M.content.startswith(PREFIX+"S")):
 		await stratish(M, M.content[2:])
 
-	if(M.content.startswith(PREFIX + 'pull')):
+	if(M.content.startswith(PREFIX + 'pull') or str(M.author) == "GitHub#0000"):
 		await pull(M)
 	
 	if(M.content.startswith(PREFIX + 'make')):
