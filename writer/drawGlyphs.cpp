@@ -1,23 +1,10 @@
 #include "drawGlyphs.hpp"
-#include <Magick++.h>
+//#include <Magick++.h>
 #include <iostream>
 #include <stdio.h>
 #include <climits>
 
 #include "presets.h"
-
-struct Offset{
-    int x;
-    int y;
-};
-
-struct BluePrint{
-    Offset offset;
-    Magick::Image image;
-};
-
-// What are we doing?
-enum Operation {None, Minify, Rotate90, Rotate180, Rotate270};
 
 
 const Offset ARTICLE_OFFSET = {-GLYPH_SIZE / 5, -GLYPH_SIZE};
