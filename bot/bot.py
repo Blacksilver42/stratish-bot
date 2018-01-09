@@ -41,6 +41,8 @@ async def nope(M):
 async def check(M):
 	await client.add_reaction(M, "✅")
 
+
+
 async def refuse(M):
 	proc = subprocess.Popen(["/usr/games/fortune", "bofh-excuses"],
 		stdout=subprocess.PIPE)
@@ -136,9 +138,6 @@ async def on_message(M):
 		else:
 			await nope(M)
 	
-	if(M.content.startswith(PREFIX + 'glyph')):
-		await glyph(M)
-
 	if(M.content.startswith(PREFIX + 'refuse')):
 		await refuse(M)
 	
