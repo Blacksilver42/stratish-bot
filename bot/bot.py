@@ -5,6 +5,11 @@ import random
 from profanity import profanity
 from os import system
 
+import helpers
+
+IGNORE_CHITCHAT = False
+
+
 with open("token", "r") as f:
 	TOKEN = f.read().rstrip()
 
@@ -31,6 +36,7 @@ else:
 
 print("PREFIX =", PREFIX)
 
+print("IGNORE_CHITCHAT =", IGNORE_CHITCHAT)
 
 async def wtf(M):
 	await client.add_reaction(M, "❓")
@@ -112,13 +118,15 @@ async def on_ready():
 
 @client.event
 async def on_message(M):
-	# Do we even care?
-	try:
-		if(M.content[0] != PREFIX): return
-	except Exception:
-		# No message content, might be a push from github
-		if(str(M.author) == "GitHub#0000"):
-			await pull(M)
+	if(IGNORE_CHITCHAT):
+		# Do we even care?
+		try:
+			if(M.content[0] != PREFIX): return
+		except Exception:
+			# No message content, might be a push from github
+			if(str(M.author) == "GitHub#0000"):
+				await pull(M)
+				return
 	
 	
 	print("#"+M.channel.name,"\t<"+str(M.author)+">\t", M.content)
