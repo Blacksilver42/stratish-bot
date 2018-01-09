@@ -48,7 +48,8 @@ async def refuse(M):
 	out = out.decode()
 	msg = "**Error:** " + out.split("\n",2)[2];
 	await client.send_message(M.channel,msg)
-	
+
+
 async def pull(M):
 	proc = subprocess.Popen(["git", "pull"], stdout=subprocess.PIPE)
 	(out, err) = proc.communicate()
@@ -60,12 +61,14 @@ async def pull(M):
 	else:
 		await check(M)
 
+
 async def make(M):
 	await client.send_typing(M.channel)
 	proc = subprocess.Popen(["bot/make.sh"], stdout=subprocess.PIPE)
 	(out, err) = proc.communicate()
 	out = out.decode()
 	await client.send_message(M.channel, "```\n"+out+"\n```")
+
 
 async def stratish(M, words):
 	if(words[0]!=' '):
@@ -89,7 +92,9 @@ async def stratish(M, words):
 	await client.send_file(M.channel, tmpfile, content="`"+words+"`")
 	
 
+
 ###############################################################################
+
 
 
 @client.event
