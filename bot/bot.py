@@ -116,7 +116,10 @@ async def on_message(M):
 	try:
 		if(M.content[0] != PREFIX): return
 	except Exception:
-		pass
+		# No message content, might be a push from github
+		if(str(M.author) == "GitHub#0000"):
+			await pull(M)
+	
 	
 	print("#"+M.channel.name,"\t<"+str(M.author)+">\t", M.content)
 	
