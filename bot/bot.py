@@ -110,6 +110,12 @@ async def on_ready():
 
 @client.event
 async def on_message(M):
+	# Do we even care?
+	try:
+		if(M.content[0] != PREFIX): return
+	except Exception:
+		pass
+	
 	print("#"+M.channel.name,"\t<"+str(M.author)+">\t", M.content)
 	
 	if(M.content.startswith(PREFIX + 'stratish')):
@@ -136,9 +142,9 @@ async def on_message(M):
 	if(M.content.startswith(PREFIX + 'refuse')):
 		await refuse(M)
 	
-	
-	if(str(M.author) == "GitHub#0000"):
-		await pull(M)
-		
+	if(M.content.startswith(PREFIX + "file")):
+		await client.send_file(M.channel,
+			"characters/"+M.content[6:])
+
 
 client.run(TOKEN);
