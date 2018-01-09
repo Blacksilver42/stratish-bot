@@ -3,3 +3,4 @@ tmp/*
 writer/sbdraw
 tmp/*
 *.o
+bot/__pycache__/
