@@ -67,11 +67,6 @@ async def make(M):
 	out = out.decode()
 	await client.send_message(M.channel, "```\n"+out+"\n```")
 
-async def glyph(M):
-	char = M.content[7].upper()
-	path = "characters/"+char+"1.png"
-	await client.send_file(M.channel, path)
-
 async def stratish(M, words):
 	if(words[0]!=' '):
 		await wtf(M)
