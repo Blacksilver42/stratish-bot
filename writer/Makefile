@@ -1,4 +1,4 @@
-.PHONY: clean
+.PHONY: clean cleanobj cleanbin
 
 CXX=g++
 SOURCES=main.cpp format.cpp drawGlyphs.cpp
@@ -22,5 +22,10 @@ format.o: format.hpp
 main.o:
 
 
-clean:
-	rm -rf *.o sbdraw
+clean: cleanobj cleanbin
+
+cleanobj:
+	rm -rf *.o
+
+cleanbin:
+	rm -rf sbdraw
