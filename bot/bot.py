@@ -66,7 +66,7 @@ async def on_message(M):
 		except Exception:
 			# No message content, might be a push from github
 			if(str(M.author) == "GitHub#0000"):
-				await pull(M)
+				await helpers.pull(M)
 				return
 	
 	
@@ -79,7 +79,7 @@ async def on_message(M):
 		await stratish(M, M.content[3:])
 
 	if(M.content.startswith(PREFIX + 'pull') or str(M.author) == "GitHub#0000"):
-		await pull(M)
+		await helpers.pull(M)
 	
 	if(M.content.startswith(PREFIX + 'make')):
 		await make(M)
