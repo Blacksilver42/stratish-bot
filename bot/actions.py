@@ -16,7 +16,7 @@ async def pull(client, M):
 		await client.send_message(M.channel, "```\n"+out+"\n```")
 		make()
 	else:
-		await check(M)
+		await check(client, M)
 
 
 async def make(client, M):
@@ -29,7 +29,7 @@ async def make(client, M):
 
 async def stratish(client, M, words):
 	if(profanity.contains_profanity(words)):
-		await helpers.refuse(M)
+		await refuse(client, M)
 		try:
 			await client.delete_message(M)
 		finally:
