@@ -1,12 +1,9 @@
-import discord
-import time
-import subprocess
-import random
+import discord, time, subprocess, random, os
 from profanity import profanity
-from os import system
 
-import helpers
-import actions
+
+from bot.helpers import *
+from bot.actions import *
 
 IGNORE_CHITCHAT = False
 
@@ -66,32 +63,35 @@ async def on_message(M):
 		except Exception:
 			# No message content, might be a push from github
 			if(str(M.author) == "GitHub#0000"):
-				await helpers.pull(M)
+				await pull(M)
 				return
 	
 	
 	print("#"+M.channel.name,"\t<"+str(M.author)+">\t", M.content)
 	
 	if(M.content.startswith(PREFIX + 'stratish')):
-		await stratish(M, M.content[9:])
+		await stratish(client, M, M.content[10:])
+		return
 
 	if(M.content.startswith(PREFIX + 's') or M.content.startswith(PREFIX+"S")):
-		await stratish(M, M.content[3:])
+		await stratish(client, M, M.content[3:])
+		return
 
 	if(M.content.startswith(PREFIX + 'pull') or str(M.author) == "GitHub#0000"):
-		await helpers.pull(M)
+		await pull(client, M)
+		return
 	
 	if(M.content.startswith(PREFIX + 'make')):
-		await make(M)
+		await make(client, M)
 	
 	if(M.content.startswith(PREFIX + 'chnick')):
 		if(M.author.id == "247841704386756619"):
 			await client.change_nickname(M.server.me, M.content[7:])
 		else:
-			await nope(M)
+			await nope(client, M)
 	
 	if(M.content.startswith(PREFIX + 'refuse')):
-		await refuse(M)
+		await refuse(client, M)
 	
 	if(M.content.startswith(PREFIX + "file")):
 		await client.send_file(M.channel,
