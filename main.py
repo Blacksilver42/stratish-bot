@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import discord, time, subprocess, random, os
 from profanity import profanity
 
