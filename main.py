@@ -77,8 +77,12 @@ async def on_message(M):
 		return
 	
 	if(M.content.startswith(PREFIX + "file")):
-		await client.send_file(M.channel,
-			"characters/"+M.content[6:])
+		try:
+			await client.send_file(M.channel,
+				"characters/"+M.content[6:])
+		except:
+			await nope(client, M)
+			
 		return
 
 client.run(TOKEN);
