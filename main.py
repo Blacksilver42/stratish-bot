@@ -14,33 +14,12 @@ with open("token", "r") as f:
 
 client = discord.Client();
 
-RAZOR = False
-try:
-	from git import Repo
-	repo = Repo('.')
-	branch = repo.active_branch
+(RAZOR, PREFIX) = check_branch()
 
-	if(branch.name == "razor"):
-		RAZOR = True
-		print("*** Razor's edge ***")
-except:
-	print("Couldn't check branch, assuming master.")
-	#TODO: fallback
-
-
-if(RAZOR):
-	PREFIX = "?"
-else:
-	PREFIX = "/"
 
 print("PREFIX =", PREFIX)
 
 print("IGNORE_CHITCHAT =", IGNORE_CHITCHAT)
-
-
-
-
-###############################################################################
 
 
 
