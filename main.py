@@ -63,19 +63,22 @@ async def on_message(M):
 	
 	if(M.content.startswith(PREFIX + 'make')):
 		await make(client, M)
+		return
 	
 	if(M.content.startswith(PREFIX + 'chnick')):
 		if(M.author.id == "247841704386756619"):
 			await client.change_nickname(M.server.me, M.content[7:])
 		else:
 			await nope(client, M)
+		return
 	
 	if(M.content.startswith(PREFIX + 'refuse')):
 		await refuse(client, M)
+		return
 	
 	if(M.content.startswith(PREFIX + "file")):
 		await client.send_file(M.channel,
 			"characters/"+M.content[6:])
-
+		return
 
 client.run(TOKEN);
