@@ -1,4 +1,4 @@
-import discord
+import discord, subprocess
 
 async def wtf(client, M):
 	await client.add_reaction(M, "❓")
