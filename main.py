@@ -5,6 +5,7 @@ from profanity import profanity
 
 from bot.helpers import *
 from bot.actions import *
+from bot.check64 import *
 
 IGNORE_CHITCHAT = False
 
@@ -48,6 +49,8 @@ async def on_message(M):
 	
 	
 	print("#"+M.channel.name,"\t<"+str(M.author)+">\t", M.content)
+	
+	await check64(client, M)
 	
 	if(M.content.startswith(PREFIX + 'stratish')):
 		await stratish(client, M, M.content[10:])
