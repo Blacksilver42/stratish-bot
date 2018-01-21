@@ -81,7 +81,6 @@ async def on_ready():
 	print(client.user.name)
 	print(client.user.id)
 	print('------')
-	#await client.change_presence(game=discord.Game(name='/stratish ...'))
 	
 
 
@@ -100,6 +99,13 @@ async def on_message(M):
 	
 	if(M.content.startswith(PREFIX + 'make')):
 		await make(M)
+
+	if(M.content.startswith(PREFIX + 'playing')):
+		if(M.author.id == "247841704386756619"):
+			await client.change_presence(game=discord.Game(name=M.content[8:]))
+		else:
+			await nope(client, M)
+		return
 	
 	if(M.content.startswith(PREFIX + 'chnick')):
 		if(M.author.id == "247841704386756619"):
