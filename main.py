@@ -9,6 +9,7 @@ from bot.check64 import *
 
 IGNORE_CHITCHAT = False
 
+os.system("mkdir -p tmp");
 
 with open("token", "r") as f:
 	TOKEN = f.read().rstrip()
