@@ -31,7 +31,11 @@ async def on_ready():
 	print(client.user.name)
 	print(client.user.id)
 	print('------')
-	#await client.change_presence(game=discord.Game(name='/stratish ...'))
+	if(RAZOR):
+		await client.change_presence(game=discord.Game(name='with neurotoxin'))
+	else:
+		await client.change_presence(game=discord.Game(name='Chess'))
+		
 	
 
 
@@ -75,6 +79,12 @@ async def on_message(M):
 		else:
 			await nope(client, M)
 		return
+	
+	if(M.content.startswith(PREFIX + 'reboot')):
+		if(M.author.id == "247841704386756619"):
+			system("sudo shutdown -r now")
+		else:
+			await refuse(client, M)
 	
 	if(M.content.startswith(PREFIX + 'refuse')):
 		await refuse(client, M)
