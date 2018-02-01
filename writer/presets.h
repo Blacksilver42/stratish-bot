@@ -17,6 +17,7 @@
 // space between glyphs and decos
 #define SPACER 10
 #define DECO_SPACER 5
+#define WORD_SPACER (SPACER*2)
 
 // internal glyph multipliers
 #define MINI_GLYPH_SIZE_MULT 0.5
