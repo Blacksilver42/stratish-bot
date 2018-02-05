@@ -32,9 +32,9 @@ async def on_ready():
 	print(client.user.id)
 	print('------')
 	if(RAZOR):
-		await client.change_presence(game=discord.Game(name='with neurotoxin'))
-	else:
 		await client.change_presence(game=discord.Game(name='Chess'))
+	else:
+		await client.change_presence(game=discord.Game(name='with neurotoxin'))
 		
 	
 
