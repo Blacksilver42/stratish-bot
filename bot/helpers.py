@@ -20,6 +20,7 @@ async def refuse(client, M):
 	await client.send_message(M.channel,msg)
 
 def check_branch():
+	RAZOR = False
 	try:
 		from git import Repo
 		repo = Repo('.')
@@ -30,6 +31,7 @@ def check_branch():
 			print("*** Razor's edge ***")
 	except:
 		print("Couldn't check branch, assuming master.")
+		RAZOR = False
 		#TODO: fallback
 
 

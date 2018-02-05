@@ -16,7 +16,7 @@ with open("token", "r") as f:
 
 client = discord.Client();
 
-(RAZOR, PREFIX) = check_branch()
+RAZOR, PREFIX = check_branch()
 
 
 print("PREFIX =", PREFIX)
