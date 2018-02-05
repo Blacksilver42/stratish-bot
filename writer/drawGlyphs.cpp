@@ -1,50 +1,55 @@
 #include "drawGlyphs.hpp"
-#include <Magick++.h>
+//#include <Magick++.h>
 #include <iostream>
 #include <stdio.h>
 #include <climits>
 
-struct Offset{
-    int x;
-    int y;
-};
-struct BluePrint{
-    Offset offset;
-    Magick::Image image;
-};
-enum Operation {None, Minify, Rotate90, Rotate180, Rotate270};
+#include "presets.h"
 
-//base values
-const int IMAGE_PADDING = 15;
-
-const int GLYPH_SIZE = 100; //must be a multiple of 20
-const int SPACER = 10;
-const int THIN_DECO_SIZE = 40;
-const int BOLD_DECO_SIZE = 20;
-const int DECO_SPACER = 5;
 
 const Offset ARTICLE_OFFSET = {-GLYPH_SIZE / 5, -GLYPH_SIZE};
-const int MINI_GLYPH_OFFSET = (GLYPH_SIZE  * 3) / 20;
-const int MINI_GLYPH_SIZE = GLYPH_SIZE / 2;
 
 Magick::Geometry MINI_GLYPH_GEO = Magick::Geometry(MINI_GLYPH_SIZE,MINI_GLYPH_SIZE);
 
+// check if it's bold -- i.e., a vowel
 bool isBoldDeco(char x){
     return (x == 'A' || x == 'E' || x == 'I' || x == 'O' || x == 'U' || x == 'Y');
 }
 
+// which corner should a inner glyph go in?
 Offset charOffset(char x){
-    if (x == 'A' || x == 'E' || x == 'I' || x == 'O' || x == 'U' || x == 'Y')             //middle
+    if (isBoldDeco(x))             //middle
         return {MINI_GLYPH_SIZE / 2, -MINI_GLYPH_SIZE / 2};
-    if (x == 'B' || x == 'C' || x == 'D' || x == 'F' || x == 'M' || x == 'N' || x == 'V') //top left
-        return {MINI_GLYPH_OFFSET, -MINI_GLYPH_OFFSET};
-    if (x == 'L' || x == 'P')                                                             //top right
-        return {GLYPH_SIZE - (MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE), -MINI_GLYPH_OFFSET};
-    if (x == 'G' || x == 'H' || x == 'K' || x == 'T' || x == 'W' || x == 'Z')             //bottom right
-        return {GLYPH_SIZE - (MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE), MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE - GLYPH_SIZE};
-    if (x == 'R' || x == 'S' || x == 'X')                                                 //bottom left
-        return {MINI_GLYPH_OFFSET, MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE - GLYPH_SIZE};
-    return {MINI_GLYPH_SIZE / 2,-MINI_GLYPH_SIZE / 2}; // must be an unknown. place glyph in middle
+	
+	switch(x){
+		case 'B':
+		case 'C':
+		case 'D':
+		case 'F':
+		case 'M':
+		case 'N':
+		case 'V':
+        	return {MINI_GLYPH_OFFSET, -MINI_GLYPH_OFFSET};
+		
+		case 'L':
+		case 'P':
+        	return {GLYPH_SIZE - (MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE), -MINI_GLYPH_OFFSET};
+
+		case 'G':
+		case 'H':
+		case 'K':
+		case 'T':
+		case 'W':
+        	return {GLYPH_SIZE - (MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE),
+				 MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE - GLYPH_SIZE};
+		
+		case 'R':
+		case 'S':
+		case 'X':
+        	return {MINI_GLYPH_OFFSET, MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE - GLYPH_SIZE};
+	}
+    
+    return {MINI_GLYPH_SIZE / 2,-MINI_GLYPH_SIZE / 2}; // Give up; place it in the middle.
 }
 
 Offset offset (Offset origin, Offset offset){
