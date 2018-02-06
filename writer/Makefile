@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-.PHONY: clean
-=======
 .PHONY: clean cleanobj cleanbin
->>>>>>> razor
 
 CXX=g++
 SOURCES=main.cpp format.cpp drawGlyphs.cpp
@@ -20,10 +16,8 @@ sbdraw: $(OBJS)
 %.o: %.cpp
 	$(CXX) -c $< $(CXXFLAGS) $(MAGICKFLAGS)
 
-<<<<<<< HEAD
 clean:
 	rm *.o sbdraw
-=======
 # extra prereqs for objects
 drawGlyphs.o: presets.h drawGlyphs.hpp
 format.o: format.hpp
@@ -37,4 +31,3 @@ cleanobj:
 
 cleanbin:
 	rm -rf sbdraw
->>>>>>> razor
