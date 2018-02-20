@@ -40,6 +40,7 @@ Offset charOffset(char x){
         case 'K':
         case 'T':
         case 'W':
+        case 'Z':
             return {GLYPH_SIZE - (MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE),
                 MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE - GLYPH_SIZE};                           //bottom-right
 
