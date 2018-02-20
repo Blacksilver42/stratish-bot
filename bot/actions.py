@@ -43,4 +43,6 @@ async def stratish(client, M, words):
 	system("touch "+tmpfile)
 	system(command)
 	await client.send_file(M.channel, tmpfile, content="`"+words+"`")
+	with open("bot.log", "a") as f:
+		f.write("<{}> {}\n".format(str(M.author),words))
 	

@@ -4,3 +4,4 @@ tmp/*
 *.o
 bot/__pycache__/
 characters/SB_lines_isolated.png
+bot.log
