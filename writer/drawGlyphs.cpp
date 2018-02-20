@@ -63,7 +63,10 @@ Magick::Image getImage(std::string str, Operation oper){
     try {
         image.read(str); //attempt to read file
     } catch (Magick::Exception &error){
-        fprintf( stderr, "Caught exception: %s", error.what()); //might want to give it a special unknown glyph for it instead
+        if (str.at(12) == '2')
+            image.read("characters/_decofail.png"); //must be thin deco because we have all of the bolds (no extra if needed)
+        else
+            image.read("characters/_fail.png");
     }
     if (oper == Minify)
         image.scale(MINI_GLYPH_GEO);
