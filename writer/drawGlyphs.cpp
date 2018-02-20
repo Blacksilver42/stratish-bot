@@ -20,34 +20,35 @@ bool isBoldDeco(char x){
 Offset charOffset(char x){
     if (isBoldDeco(x))             //middle
         return {MINI_GLYPH_SIZE / 2, -MINI_GLYPH_SIZE / 2};
-	
-	switch(x){
-		case 'B':
-		case 'C':
-		case 'D':
-		case 'F':
-		case 'M':
-		case 'N':
-		case 'V':
-        	return {MINI_GLYPH_OFFSET, -MINI_GLYPH_OFFSET};
-		
-		case 'L':
-		case 'P':
-        	return {GLYPH_SIZE - (MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE), -MINI_GLYPH_OFFSET};
+    
+    switch(x){
+        case 'B':
+        case 'C':
+        case 'D':
+        case 'F':
+        case 'M':
+        case 'N':
+        case 'V':
+            return {MINI_GLYPH_OFFSET, -MINI_GLYPH_OFFSET};                                  //top-left
 
-		case 'G':
-		case 'H':
-		case 'K':
-		case 'T':
-		case 'W':
-        	return {GLYPH_SIZE - (MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE),
-				 MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE - GLYPH_SIZE};
-		
-		case 'R':
-		case 'S':
-		case 'X':
-        	return {MINI_GLYPH_OFFSET, MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE - GLYPH_SIZE};
-	}
+        case 'L':
+        case 'P':
+            return {GLYPH_SIZE - (MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE), -MINI_GLYPH_OFFSET}; //top-right
+
+        case 'G':
+        case 'H':
+        case 'K':
+        case 'T':
+        case 'W':
+        case 'Z':
+            return {GLYPH_SIZE - (MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE),
+                MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE - GLYPH_SIZE};                           //bottom-right
+
+        case 'R':
+        case 'S':
+        case 'X':
+            return {MINI_GLYPH_OFFSET, MINI_GLYPH_OFFSET + MINI_GLYPH_SIZE - GLYPH_SIZE};    //bottom-left
+    }
     
     return {MINI_GLYPH_SIZE / 2,-MINI_GLYPH_SIZE / 2}; // Give up; place it in the middle.
 }
