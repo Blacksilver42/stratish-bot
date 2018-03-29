@@ -5,20 +5,16 @@
 #include <climits>
 
 #include "presets.h"
+#include "common.hpp"
 
 
 const Offset ARTICLE_OFFSET = {-GLYPH_SIZE / 5, -GLYPH_SIZE};
 
 Magick::Geometry MINI_GLYPH_GEO = Magick::Geometry(MINI_GLYPH_SIZE,MINI_GLYPH_SIZE);
 
-// check if it's bold -- i.e., a vowel
-bool isBoldDeco(char x){
-    return (x == 'A' || x == 'E' || x == 'I' || x == 'O' || x == 'U' || x == 'Y');
-}
-
 // which corner should a inner glyph go in?
 Offset charOffset(char x){
-    if (isBoldDeco(x))             //middle
+    if (isBold(x))             //middle
         return {MINI_GLYPH_SIZE / 2, -MINI_GLYPH_SIZE / 2};
     
     switch(x){
@@ -99,7 +95,7 @@ std::vector<BluePrint> graph(std::vector<std::string> input){
                 bluePrint.push_back({localOrigin, getImage("characters/_me.png")});
             if (x == '1' || x == '2')           // if there is an article
                 article = x;                     // let the next glyph know to add it
-            if (j == 0 && (x >= 'A' && x <= 'Z')) { //if first character of a thin or bold sequence add it as a main glyph
+            if (j == 0 && !(x >= '1' && x <= '4')) { //if first character of a thin or bold sequence add it as a main glyph
                 char buf[18];
                 sprintf(buf, "characters/%c1.png", x);
                 bluePrint.push_back({localOrigin, getImage(buf)});
@@ -115,7 +111,7 @@ std::vector<BluePrint> graph(std::vector<std::string> input){
                 bluePrint.push_back({offset(localOrigin, offsetPrev), getImage(buf, Minify)});
             }
             if (j == 2){
-                if (isBoldDeco(x))
+                if (isBold(x))
                     decorationSize = BOLD_DECO_SIZE;
                 else
                     decorationSize = THIN_DECO_SIZE;
@@ -125,6 +121,7 @@ std::vector<BluePrint> graph(std::vector<std::string> input){
             if (j >= 2){
                 char buf[18];
                 sprintf(buf, "characters/%c2.png", x);
+                
                 if (j % 2 == 0 && article == '0'){ //add on bottom
                     bluePrint.push_back({localDecoBotOrigin, getImage(buf, Rotate180)});
                     localDecoBotOrigin.y -= (decorationSize + DECO_SPACER);

@@ -1,8 +1,8 @@
 .PHONY: clean cleanobj cleanbin
 
 CXX=g++
-SOURCES=main.cpp format.cpp drawGlyphs.cpp
-OBJS=main.o format.o drawGlyphs.o
+SOURCES=main.cpp format.cpp drawGlyphs.cpp common.cpp
+OBJS=main.o format.o drawGlyphs.o common.o
 
 CXXFLAGS=-Wall -Wextra -Wpedantic -std=gnu++11
 
@@ -21,6 +21,7 @@ clean:
 # extra prereqs for objects
 drawGlyphs.o: presets.h drawGlyphs.hpp
 format.o: format.hpp
+common.o: common.hpp
 main.o:
 
 

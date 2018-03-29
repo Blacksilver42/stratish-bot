@@ -2,14 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "format.hpp"
-
-bool isBold(char x){
-    return (x == 'A' || x == 'E' || x == 'I' || x == 'O' || x == 'U' || x == 'Y');
-}
-
-bool isThin(char x){
-    return (!(isBold(x)) && (x >= 'A' && x <= 'Z'));
-}
+#include "common.hpp"
 
 std::vector<std::string> format(char* input){
     std::vector<std::string> groups;
@@ -22,7 +15,7 @@ std::vector<std::string> format(char* input){
         x = input[i];
         if (x >= 'a' && x <= 'z') //make it uppercase
             x -= 32;
-        if (!((x >= 'A' && x <= 'Z') || x == ' ' || x == 0)){ //if not any char I care about, discard
+        if (!((x >= 'A' && x <= 'Z') || x == ' ' || x == '-' || x == '_' || x == 0)){ //if not any char I care about, discard
             i++;
             continue;
         }
