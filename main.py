@@ -90,13 +90,29 @@ async def on_message(M):
 		await refuse(client, M)
 		return
 	
-	if(M.content.startswith(PREFIX + "file")):
+	if(M.content.startswith(PREFIX + "character")):
 		try:
+			await client.send_typing(M.channel)
 			await client.send_file(M.channel,
-				"characters/"+M.content[6:])
+				"characters/"+M.content[11:])
 		except:
 			await nope(client, M)
 			
 		return
+	
+	if(M.content.startswith(PREFIX + "files")):
+		if(M.content == PREFIX + "files"):
+			proc = subprocess.Popen(["ls", "-C", "files"], stdout=subprocess.PIPE)
+			(out, err) = proc.communicate()
+			out = out.decode()
+			await client.send_message(M.channel, "```"+out+"```")
+			return
+		try:
+			await client.send_typing(M.channel)
+			await client.send_file(M.channel,
+				"files/"+M.content[7:])
+		except:
+			await nope(client, M)
+			
 
 client.run(TOKEN);
