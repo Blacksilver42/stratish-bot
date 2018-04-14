@@ -28,6 +28,9 @@ async def make(client, M):
 
 
 async def stratish(client, M, words):
+	await client.send_message("Currently broken, sorry :(",M.channel)
+	return
+
 	if(profanity.contains_profanity(words)):
 		await refuse(client, M)
 		try:
