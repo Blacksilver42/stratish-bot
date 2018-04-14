@@ -122,11 +122,11 @@ std::vector<BluePrint> graph(std::vector<std::string> input){
                 char buf[23];
                 sprintf(buf, "characters/sans/%c2.png", x);
                 
-                if (j % 2 == 0 && article == '0'){ //add on bottom
+                if (j % 2 == 1 && article == '0'){ //add on bottom
                     bluePrint.push_back({localDecoBotOrigin, getImage(buf, Rotate180)});
                     localDecoBotOrigin.y -= (decorationSize + DECO_SPACER);
                 }
-                if (j % 2 == 1 || article != '0'){ //add on 
+                if (j % 2 == 0 || article != '0'){ //add on 
                     bluePrint.push_back({localDecoTopOrigin, getImage(buf)});
                     localDecoTopOrigin.y += (decorationSize + DECO_SPACER);
                 }
