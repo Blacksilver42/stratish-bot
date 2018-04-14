@@ -61,9 +61,9 @@ Magick::Image getImage(std::string str, Operation oper){
         image.read(str); //attempt to read file
     } catch (Magick::Exception &error){
         if (str.at(12) == '2')
-            image.read("characters/_decofail.png"); //must be thin deco because we have all of the bolds (no extra if needed)
+            image.read("characters/sans/_decofail.png"); //must be thin deco because we have all of the bolds (no extra if needed)
         else
-            image.read("characters/_fail.png");
+            image.read("characters/sans/_fail.png");
     }
     if (oper == Minify)
         image.scale(MINI_GLYPH_GEO);
@@ -90,23 +90,23 @@ std::vector<BluePrint> graph(std::vector<std::string> input){
         for (unsigned int j = 0; j < sequence.length(); j++){
             char x = sequence[j];
             if (x == '3')
-                bluePrint.push_back({localOrigin, getImage("characters/_you.png")});
+                bluePrint.push_back({localOrigin, getImage("characters/sans/_you.png")});
             if (x == '4')
-                bluePrint.push_back({localOrigin, getImage("characters/_me.png")});
+                bluePrint.push_back({localOrigin, getImage("characters/sans/_me.png")});
             if (x == '1' || x == '2')           // if there is an article
                 article = x;                     // let the next glyph know to add it
             if (j == 0 && !(x >= '1' && x <= '4')) { //if first character of a thin or bold sequence add it as a main glyph
-                char buf[18];
-                sprintf(buf, "characters/%c1.png", x);
+                char buf[23];
+                sprintf(buf, "characters/sans/%c1.png", x);
                 bluePrint.push_back({localOrigin, getImage(buf)});
                 if (article == '1')
-                    bluePrint.push_back({offset(localOrigin, ARTICLE_OFFSET), getImage("characters/_the.png")});
+                    bluePrint.push_back({offset(localOrigin, ARTICLE_OFFSET), getImage("characters/sans/_the.png")});
                 if (article == '2')
-                    bluePrint.push_back({offset(localOrigin, ARTICLE_OFFSET), getImage("characters/_a.png")});
+                    bluePrint.push_back({offset(localOrigin, ARTICLE_OFFSET), getImage("characters/sans/_a.png")});
             }
             if (j == 1) {     //dont need to worry about it being 'A' through 'Z'
-                char buf[18];
-                sprintf(buf, "characters/%c1.png", x);
+                char buf[23];
+                sprintf(buf, "characters/sans/%c1.png", x);
                 Offset offsetPrev = charOffset(sequence[0]);
                 bluePrint.push_back({offset(localOrigin, offsetPrev), getImage(buf, Minify)});
             }
@@ -119,8 +119,8 @@ std::vector<BluePrint> graph(std::vector<std::string> input){
                 localDecoBotOrigin = offset(localOrigin, {0, -GLYPH_SIZE - DECO_SPACER});
             }
             if (j >= 2){
-                char buf[18];
-                sprintf(buf, "characters/%c2.png", x);
+                char buf[23];
+                sprintf(buf, "characters/sans/%c2.png", x);
                 
                 if (j % 2 == 0 && article == '0'){ //add on bottom
                     bluePrint.push_back({localDecoBotOrigin, getImage(buf, Rotate180)});
