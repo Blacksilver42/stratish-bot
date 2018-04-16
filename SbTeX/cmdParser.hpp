@@ -1,11 +1,14 @@
 #pragma once
 #include <iostream>
+#include <fstream>
 
 #include "error.hpp"
 
 struct Info{
-    std::string input;
-    std::string font;
+	std::string input;
+	const char * font;
+	FILE * outfile;
+	const char * outfile_name;
 };
 
-Error getInfo(int argc, char* argv[], Info &info);
+void getInfo(int argc, char* argv[], Info *info);
