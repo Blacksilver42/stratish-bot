@@ -40,8 +40,9 @@ async def stratish(client, M, words):
 	
 	await client.send_typing(M.channel)
 	ut = time.strftime("%s")
+	font = "sans"
 	tmpfile = "tmp/img-"+str(ut)+".png"
-	command = "writer/sbdraw '%s' '%s'" % (words, tmpfile)
+	command = "SbTeX/sbtex %s -o %s -f %s" % (words, tmpfile, font)
 	print("$", command)
 	system("touch "+tmpfile)
 	system(command)
