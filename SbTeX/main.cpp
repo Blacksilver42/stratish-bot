@@ -4,5 +4,10 @@
 
 int main (int argc, char* argv[]){
 	Info info;
-	getInfo(argc, argv, &info);
+	int r = getInfo(argc, argv, &info);
+	if(r != 0){
+		// oh, no! :(
+		return r;
+	}
+	// phew, that worked.
 }
