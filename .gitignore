@@ -1,5 +1,5 @@
 token
-writer/sbdraw
+SbTeX/sbtex
 tmp/*
 *.o
 bot/__pycache__/
