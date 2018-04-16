@@ -76,7 +76,7 @@ async def on_message(M):
 	if(M.content.startswith(PREFIX + 'chnick')):
 		if(M.author.id == "247841704386756619"):
 			await client.change_nickname(M.server.me, M.content[7:])
-		else: # This bit shouldn't work                   ^~~~~~~~~~~~~
+		else: # This bit shouldn't work with no arguments ^~~~~~~~~~~~~
 			await nope(client, M)
 		return
 	
