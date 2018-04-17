@@ -1,3 +1,4 @@
+#include "logger.hpp"
 #include "cmdParser.hpp"
 #include "defaults.hpp"
 #include <string.h>
