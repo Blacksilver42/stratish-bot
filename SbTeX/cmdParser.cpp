@@ -12,7 +12,7 @@ int getInfo(int argc, char* argv[], Info * info){
 	info->outfile_name = "stdout";
 	for(i=0;i<argc;i++){
 		if(strcmp(argv[i],"-o") == 0){
-			info->outfile = fopen(argv[i+1], "r");
+			info->outfile = fopen(argv[i+1], "w");
 			info->outfile_name = argv[i+1];
 			
 			if(info->outfile == NULL){
